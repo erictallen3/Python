@@ -1,0 +1,248 @@
+module = r'D:/IDLE/module.py'  #Specify path of module
+
+import module   #Import the module containig the functions
+import arcpy    #Import arcpy package
+
+arcpy.CheckOutExtension('Spatial')  #Imprt spatial analyst
+from arcpy import env
+from arcpy.sa import *
+arcpy.env.overwriteOutput = True     #Allow for overwriting of output datasets
+
+
+
+#set workspace
+directCDL = "D:/finProjData/CimCDL"   #Assign names to filepaths
+directSPI = "D:/finProjData/CimSpi"
+
+arcpy.env.workspace = directCDL         #Set workspace
+CDL_rasters = arcpy.ListRasters()       
+print(CDL_rasters)          #Print the rasters in the filepath
+
+arcpy.env.workspace = directSPI #Set workspace
+SPI_rasters = arcpy.ListRasters()
+print(SPI_rasters)  #Print the rasters in the filepath
+
+
+
+spi2010Masked = Reclassify("SPI_2010.tif", "Value", RemapRange([[-3,-1, 1]]))  #Reclassify values in the range (-3 to -1) to 1 #This creates a binary map of drought and non-drought pixels
+#spi2010Masked.save("D:/finProjData/outputSPI/spi2010Masked.tif")    #save file
+#Repeat the process for all of the years
+spi2011Masked = Reclassify("SPI_2011.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2011Masked.save("D:/finProjData/outputSPI/spi2011Masked.tif")
+
+spi2012Masked = Reclassify("SPI_2012.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2012Masked.save("D:/finProjData/outputSPI/spi2012Masked.tif")
+
+spi2013Masked = Reclassify("SPI_2013.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2013Masked.save("D:/finProjData/outputSPI/spi2013Masked.tif")
+
+spi2014Masked = Reclassify("SPI_2014.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2014Masked.save("D:/finProjData/outputSPI/spi2014Masked.tif")
+
+spi2015Masked = Reclassify("SPI_2015.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2015Masked.save("D:/finProjData/outputSPI/spi2015Masked.tif")
+
+spi2016Masked = Reclassify("SPI_2016.tif", "Value", RemapRange([[-3,-1, 1]]))
+#spi2016Masked.save("D:/finProjData/outputSPI/spi2016Masked.tif")
+
+
+
+
+
+
+
+
+
+##2010
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+
+spi2010drought = ExtractByAttributes("spi2010Masked.tif","VALUE = 1")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2010v = "D:/finProjData/CimCDL/CDL_2010.tif"
+extractByMaskTest2010 = ExtractByMask(CDL_2010v,spi2010drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2011.save("extractByMaskTest2010.tif")
+
+
+#2011
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2011drought = ExtractByAttributes("spi2011Masked.tif","VALUE = 1")
+#spi2011drought.save("spi2011drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2011v = "D:/finProjData/CimCDL/CDL_2011.tif"
+extractByMaskTest2011 = ExtractByMask(CDL_2011v,spi2011drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2011.save("extractByMaskTest2011.tif")
+
+
+#2012
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2012drought = ExtractByAttributes("spi2012Masked.tif","VALUE = 1")
+#spi2012drought.save("spi2012drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2012v = "D:/finProjData/CimCDL/CDL_2012.tif"
+extractByMaskTest2012 = ExtractByMask(CDL_2012v,spi2012drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2012.save("extractByMaskTest2012.tif")
+
+
+#2013
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2013drought = ExtractByAttributes("spi2013Masked.tif","VALUE = 1")
+#spi2013drought.save("spi2013drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2013v = "D:/finProjData/CimCDL/CDL_2013.tif"
+extractByMaskTest2013 = ExtractByMask(CDL_2013v,spi2013drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2013.save("extractByMaskTest2013.tif")
+
+
+#2014
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2014drought = ExtractByAttributes("spi2014Masked.tif","VALUE = 1")
+#spi2014drought.save("spi2014drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2014v = "D:/finProjData/CimCDL/CDL_2014.tif"
+extractByMaskTest2014 = ExtractByMask(CDL_2014v,spi2014drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2014.save("extractByMaskTest2014.tif")
+
+
+#2015
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2015drought = ExtractByAttributes("spi2015Masked.tif","VALUE = 1")
+#spi2015drought.save("spi2015drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2015v = "D:/finProjData/CimCDL/CDL_2015.tif"
+extractByMaskTest2015 = ExtractByMask(CDL_2015v,spi2015drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2015.save("extractByMaskTest2015.tif")
+
+
+#2016
+arcpy.env.workspace = "D:/finProjData/outputSPI" #Set workspace
+spi2016drought = ExtractByAttributes("spi2016Masked.tif","VALUE = 1")
+#spi2016drought.save("spi2016drought.tif")
+
+arcpy.env.workspace = "D:/finProjData/CimCDL"
+CDL_2016v = "D:/finProjData/CimCDL/CDL_2016.tif"
+extractByMaskTest2016 = ExtractByMask(CDL_2016v,spi2016drought)
+arcpy.env.workspace = "D:/finProjData/maskedSPI"
+#extractByMaskTest2016.save("extractByMaskTest2016.tif")
+
+
+
+
+
+
+
+
+
+
+
+numpyRaster2010 = arcpy.RasterToNumPyArray("spi2010drought.tif")  #Use RasterToNumPyArray() function to convert the given .tif file to a NumPy array
+droughtCount2010 = numpy.count_nonzero(numpyRaster2010 == 1)      #Use count_nonzero() function to 
+#print(droughtCount2010)                                          #Print to see number of drought pixels
+Drought_pct_2010 = (droughtCount2010/420) * 100                   #calculate percent drought coverage
+#print(Drought_pct_2010)                                          #Print to see percent drought coverage
+
+#Repeat for all years
+
+numpyRaster2011 = arcpy.RasterToNumPyArray("spi2011drought.tif")
+droughtCount2011 = numpy.count_nonzero(numpyRaster2011 == 1)
+#print(droughtCount2011)
+Drought_pct_2011 = (droughtCount2011/420) * 100
+#print(Drought_pct_2011)
+
+numpyRaster2012 = arcpy.RasterToNumPyArray("spi2012drought.tif")
+droughtCount2012 = numpy.count_nonzero(numpyRaster2012 == 1)
+#print(droughtCount2012)
+Drought_pct_2012 = (droughtCount2012/420) * 100
+#print(Drought_pct_2012)
+
+numpyRaster2013 = arcpy.RasterToNumPyArray("spi2013drought.tif")
+droughtCount2013 = numpy.count_nonzero(numpyRaster2013 == 1)
+#print(droughtCount2013)
+Drought_pct_2013 = (droughtCount2013/420) * 100
+#print(Drought_pct_2013)
+
+numpyRaster2014 = arcpy.RasterToNumPyArray("spi2014drought.tif")
+droughtCount2014 = numpy.count_nonzero(numpyRaster2014 == 1)
+#print(droughtCount2014)
+Drought_pct_2014 = (droughtCount2014/420) * 100
+#print(Drought_pct_2014)
+
+numpyRaster2015 = arcpy.RasterToNumPyArray("spi2015drought.tif")
+droughtCount2015 = numpy.count_nonzero(numpyRaster2015 == 1)
+#print(droughtCount2015)
+Drought_pct_2015 = (droughtCount2015/420) * 100
+#print(Drought_pct_2015)
+
+numpyRaster2016 = arcpy.RasterToNumPyArray("spi2016drought.tif")
+droughtCount2016 = numpy.count_nonzero(numpyRaster2016 == 1)
+#print(droughtCount2016)
+Drought_pct_2016 = (droughtCount2016/420) * 100
+#print(Drought_pct_2016)
+
+
+droughtList2 = [7.38,70,100,100,100,42.14,79.05]  #Make list of percent drought coverage for each year
+year2 =  [2010,2011,2012,2013,2014,2015,2016]     #Make llist oof years
+
+
+########################### Function for collecting years to get
+yearList2 = []     #Make empty list
+
+numberOfYears = int(input("How many years do you want drought percent cover data for? (1-7)"))   #Set input to retrieve an integer year
+
+if  numberOfYears == 0:
+    years = input("Enter a year that you would like to know the percent of Cimarron County, Oklahoma experienced drought (2010-2016):    ")  #Set input prompt to retrieve one year
+    yearList2.append(years)
+    
+else:
+    for i in range(numberOfYears):       
+        years = input("Enter a year that you would like to know the percent of Cimarron County, Oklahoma experienced drought (2010-2016),    ")  #Set input prompt to retriieve more than one year
+        yearList2.append(years)
+
+
+
+
+
+yearListLULC2 = []   #Make empty list
+
+numberOfYearsLULC = int(input("How many years do you want LULC data for? (1-7)"))  #Set input to retrieve an integer year
+
+if  numberOfYearsLULC == 0:
+    years_m = input("For which year would you like to know which LULC experienced drought, and the respective amount of pixels for each?:   ")  #Set input prompt to retrieve one year
+
+    yearListLULC2.append(years_m)
+    
+else:
+    for i in range(numberOfYearsLULC):       
+        years_m = input("For which year would you like to know which LULC experienced drought, and the respective amount of pixels for each?:   ")  #Set input prompt to retriieve more than one year
+        yearListLULC2.append(years_m)
+
+
+
+#Create key for the LULC types
+print(str("LULC_key______"
+"0: No_Data; 1: Corn; 2: Cotton; 4: Sorghum; 24: Winter wheat; 28: Oats; 36: Alfafa"
+"61: Fallow/idle cropland; 121: developed/open_space; 122: Developed/low intesity"
+ "123: Developed/medium intensity; 152: Shrubland; 176: Grassland/pasture; 190: Woody wetlands"
+"195: Herbaceous wetlands; 205: Triticale; 225: Double crop winter wheat/corn"
+ "226: Double crop winter wheat/sorghum"))
+            
+##########################
+
+
+module.droughtInput(yearList2, droughtList2)    #Use lists as input for  the functions defined in the module file
+module.LULCinput(yearListLULC2, year2)
+
+
+
+
