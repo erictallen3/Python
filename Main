@@ -1,0 +1,78 @@
+import numpy      #Import the necessary packages
+import arcpy
+arcpy.env.workspace = "D:/finProjData/maskedSPI"  #Set workspace
+
+
+######################## function for getting yearly data on percent drought cover 
+
+def droughtInput(yearList, droughtList):    #Define function to output percent drought coverage for the county based onn input year
+    for year in yearList:    
+        if year == "2010":      #if the input year is exactly equal to 2010, 
+            print("[2010]: " + str(droughtList[0])) #print the year and percent of the county experiencing drought during that year
+#Repeat the above process for each year
+        elif year == "2011":
+            print("[2011]: " + str(droughtList[1]))
+
+        elif year == "2012":
+            print("[2012]: " + str(droughtList[2]))
+
+        elif year == "2013":
+            print("[2013]: " + str(droughtList[3]))
+
+        elif year == "2014":
+            print("[2014]: " + str(droughtList[4]))
+
+        elif year == "2015":
+            print("[2015]: " + str(droughtList[5]))
+
+        elif year == "2016":
+            print("[2016]: " + str(droughtList[6]))
+
+        else:
+            print("There is no data for that year") #If the input is not 2010-2016, print "There is no data for that year"
+
+
+
+
+
+
+######################## function for getting yearly data on LULC affected by drought
+
+def LULCinput(yearListLULC, years_m): #Define function to output LULC types and the amount of pixels for each for the county based onn input year
+    for row in yearListLULC:
+        if row == "2010":   #If LULC input year is exactly equal to 2010
+            with arcpy.da.SearchCursor("extractByMaskTest2010.tif", ['Value', 'Count']) as cursor:  #Set cursor to look in the given year's data columns for LULC ID and amount of pixels with each ID 
+                for row1 in cursor:
+                    print("[2010]:" + str(row1))   #Print the LULC types experiencing drought in the given year, and total pixels experiencing drought for each type
+#Repeat for meach year
+        elif row == "2011":
+            with arcpy.da.SearchCursor("extractByMaskTest2011.tif", ['Value', 'Count']) as cursor:
+                for row2 in cursor:
+                    print("[2011]:" + str(row2)) 
+        elif row == "2012":
+            with arcpy.da.SearchCursor("extractByMaskTest2012.tif", ['Value', 'Count']) as cursor:
+                for row3 in cursor:
+                    print("[2012]:" + str(row3)) 
+        elif row == "2013":
+            with arcpy.da.SearchCursor("extractByMaskTest2013.tif", ['Value', 'Count']) as cursor:
+                for row4 in cursor:
+                    print("[2013]:" + str(row4)) 
+        elif row == "2014":
+            with arcpy.da.SearchCursor("extractByMaskTest2014.tif", ['Value', 'Count']) as cursor:
+                for row5 in cursor:
+                    print("[2014]:" + str(row5)) 
+        elif row == "2015":
+            with arcpy.da.SearchCursor("extractByMaskTest2015.tif", ['Value', 'Count']) as cursor:
+                for row6 in cursor:
+                    print("[2015]:" + str(row6)) 
+        elif row == "2016":
+            with arcpy.da.SearchCursor("extractByMaskTest2016.tif", ['Value', 'Count']) as cursor:
+                for row7 in cursor:
+                    print("[2016]:" + str(row7)) 
+        else:
+            print("There is no data for that year")  #Account for input outside of the years 2010-2016
+
+
+
+
+
